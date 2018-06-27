@@ -29,11 +29,6 @@ RUN docker-php-ext-install intl
 
 RUN docker-php-ext-install pdo pdo_mysql mysqli mcrypt zip bcmath
 
-ADD toolbox.sh /var/.docker/toolbox.sh
-RUN chmod +x /var/.docker/toolbox.sh \
-	&& sh /var/.docker/toolbox.sh composer \
-	&& sh /var/.docker/toolbox.sh xdebug
-
 # -----------------------------------------------
 # Composer
 # -----------------------------------------------
