@@ -23,6 +23,9 @@ RUN set -e && \
 # Soap
 RUN docker-php-ext-install soap && docker-php-ext-enable soap
 
+# Sockets
+RUN docker-php-ext-install sockets
+
 # Intl extension
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-install intl
