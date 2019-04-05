@@ -1,12 +1,12 @@
 # -------------------------------------------------------------
-# @Generated Pá úno 15 14:51:09 CET 2019
+# @Generated Pá dub  5 12:26:04 CEST 2019
 #
 # Don't edit this file directly!
 # For edit use Docker file in root directory & run ./copy.sh
 # to regenerate
 # -------------------------------------------------------------
 
-FROM php:7.1-fpm-jessie
+FROM php:7.1-fpm
 
 RUN set -e && \
 	apt-get update && apt-get install --no-install-recommends -y \

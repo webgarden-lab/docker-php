@@ -22,9 +22,9 @@ _generate() {
 	} > $1/Dockerfile
 }
 
-_generate 7.1 7.1-fpm-jessie
-_generate 7.2 7.2-fpm-jessie
-_generate 7.3 7.3-fpm-jessie
+_generate 7.1 7.1-fpm
+_generate 7.2 7.2-fpm
+_generate 7.3 7.3-fpm
 
 _generate 7.1-fpm-stretch
 _generate 7.2-fpm-stretch
