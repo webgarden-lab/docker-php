@@ -1,12 +1,8 @@
 # -------------------------------------------------------------
-# @Generated Čt lis 28 21:06:28 CET 2019
-#
-# Don't edit this file directly!
-# For edit use Docker file in root directory & run ./copy.sh
-# to regenerate
+# Cause of changes, this file is NOT generated anymore
 # -------------------------------------------------------------
 
-FROM php:7.3-fpm
+FROM php:7.4.0-fpm
 
 RUN set -e && \
 	apt-get update && apt-get install --no-install-recommends -y \
@@ -37,7 +33,11 @@ RUN docker-php-ext-install sockets
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-install intl
 
-RUN docker-php-ext-install pdo pdo_mysql mysqli mcrypt zip bcmath
+RUN set -e && \
+	apt-get update && apt-get install --no-install-recommends -y \
+        libzip-dev
+
+RUN docker-php-ext-install pdo pdo_mysql mysqli zip bcmath
 
 # -----------------------------------------------
 # Composer
