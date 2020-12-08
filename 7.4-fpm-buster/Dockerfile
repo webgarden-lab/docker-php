@@ -1,17 +1,21 @@
+FROM php:7.4.13-fpm-buster
 
 RUN set -e && \
 	apt-get update && apt-get install --no-install-recommends -y \
 		wget \
 		rsyslog \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libmcrypt-dev \
+		# gd
+		libfreetype6-dev \
+		libjpeg62-turbo-dev \
+		libpng-dev \
         ssh \
         git \
         telnet \
         unzip \
         openssl \
-        zlib1g-dev \
+		# zip
+		zlib1g-dev \
+		libzip-dev \
         libicu-dev \
         libxml2-dev \
         g++ \
@@ -28,7 +32,7 @@ RUN docker-php-ext-install sockets
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-install intl
 
-RUN docker-php-ext-install pdo pdo_mysql mysqli mcrypt zip bcmath
+RUN docker-php-ext-install pdo pdo_mysql mysqli zip bcmath
 
 # -----------------------------------------------
 # Composer
@@ -68,9 +72,7 @@ RUN mkdir -p /usr/src/php/ext/redis \
     && docker-php-ext-install redis
 
 # Labels
-LABEL maintainer="arziel12@gmail.com"
-LABEL maintainer_padavan="honza.chudomsky@webgarden.cz"
-#	config.php=$PHP_VERSION
+LABEL maintainer="honza.chudomsky@webgarden.cz"
 
 # Workdir
 WORKDIR /var/docker

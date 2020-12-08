@@ -1,26 +1,21 @@
-# -------------------------------------------------------------
-# @Generated Čt lis 28 21:06:28 CET 2019
-#
-# Don't edit this file directly!
-# For edit use Docker file in root directory & run ./copy.sh
-# to regenerate
-# -------------------------------------------------------------
-
 FROM php:7.3-fpm-stretch
 
 RUN set -e && \
 	apt-get update && apt-get install --no-install-recommends -y \
 		wget \
 		rsyslog \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libmcrypt-dev \
+		# gd
+		libfreetype6-dev \
+		libjpeg62-turbo-dev \
+		libpng-dev \
         ssh \
         git \
         telnet \
         unzip \
         openssl \
-        zlib1g-dev \
+		# zip
+		zlib1g-dev \
+		libzip-dev \
         libicu-dev \
         libxml2-dev \
         g++ \
@@ -37,7 +32,7 @@ RUN docker-php-ext-install sockets
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-install intl
 
-RUN docker-php-ext-install pdo pdo_mysql mysqli mcrypt zip bcmath
+RUN docker-php-ext-install pdo pdo_mysql mysqli zip bcmath
 
 # -----------------------------------------------
 # Composer
@@ -76,10 +71,7 @@ RUN mkdir -p /usr/src/php/ext/redis \
     && docker-php-ext-configure redis --enable-redis-igbinary \
     && docker-php-ext-install redis
 
-# Labels
-LABEL maintainer="arziel12@gmail.com"
 LABEL maintainer_padavan="honza.chudomsky@webgarden.cz"
-#	config.php=$PHP_VERSION
 
 # Workdir
 WORKDIR /var/docker
