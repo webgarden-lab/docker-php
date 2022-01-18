@@ -1,24 +1,29 @@
-FROM php:8.0.9-fpm-buster
+FROM php:8.0.12-fpm-buster
 
 RUN set -e && \
-	apt-get update && apt-get install --no-install-recommends -y \
-		wget \
-		rsyslog \
-        ssh \
-        git \
-        telnet \
-        unzip \
-        openssl \
-		# zip
-		zlib1g-dev \
-		libzip-dev \
-        libicu-dev \
-        libxml2-dev \
-        g++ \
-        ssh
+    apt-get update && apt-get install --no-install-recommends -y \
+    wget \
+    rsyslog \
+    ssh \
+    git \
+    telnet \
+    unzip \
+    openssl \
+    # zip
+    zlib1g-dev \
+    libzip-dev \
+    libicu-dev \
+    libxml2-dev \
+    # amqp
+    librabbitmq-dev \
+    g++ \
+    ssh
 
 # Sockets
 RUN docker-php-ext-install sockets
+
+# amqp
+RUN pecl install amqp-1.11.0 && docker-php-ext-enable amqp
 
 # Intl extension
 RUN docker-php-ext-configure intl
@@ -34,12 +39,12 @@ RUN EXPECTED_SIGNATURE=$(wget -q -O - https://composer.github.io/installer.sig) 
     ; php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     ; ACTUAL_SIGNATURE=$(php -r "echo hash_file('SHA384', 'composer-setup.php');") \
     ; [ "$EXPECTED_SIGNATURE" != "$ACTUAL_SIGNATURE" ] && echo 'ERROR: Invalid installer signature' && exit 1 \
-	; php composer-setup.php --version=2.1.3 --quiet \
-	; mv composer.phar /usr/local/bin/composer \
-	; chmod +x /usr/local/bin/composer \
-	; RESULT=$? \
-	; rm composer-setup.php \
-	; exit $RESULT
+    ; php composer-setup.php --version=2.1.3 --quiet \
+    ; mv composer.phar /usr/local/bin/composer \
+    ; chmod +x /usr/local/bin/composer \
+    ; RESULT=$? \
+    ; rm composer-setup.php \
+    ; exit $RESULT
 
 # -----------------------------------------------
 # XDebug
