@@ -24,7 +24,7 @@ RUN set -e && \
 RUN CFLAGS="$CFLAGS -D_GNU_SOURCE" docker-php-ext-install sockets
 
 # amqp
-RUN pecl install amqp-1.11.0 && docker-php-ext-enable amqp
+RUN pecl install amqp-2.1.1 && docker-php-ext-enable amqp
 
 # Intl extension
 RUN docker-php-ext-configure intl
