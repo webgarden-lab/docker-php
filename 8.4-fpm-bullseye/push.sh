@@ -1,2 +1,2 @@
 docker login
-docker push webgarden/php:8.4.8-fpm-bullseye
+docker push webgarden/php:8.4.10-fpm-bullseye

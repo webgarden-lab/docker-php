@@ -1,4 +1,4 @@
-FROM php:8.4.8-fpm-bullseye
+FROM php:8.4.10-fpm-bullseye
 
 RUN set -e && \
     apt-get update && apt-get install --no-install-recommends -y \
@@ -17,7 +17,10 @@ RUN set -e && \
     # amqp
     librabbitmq-dev \
     g++ \
-    ssh
+    ssh \
+    # swoole
+    software-properties-common \
+    libbrotli-dev
 
 # Sockets
 # https://github.com/php/php-src/issues/7986
@@ -40,7 +43,7 @@ RUN EXPECTED_SIGNATURE=$(wget -q -O - https://composer.github.io/installer.sig) 
     ; php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     ; ACTUAL_SIGNATURE=$(php -r "echo hash_file('SHA384', 'composer-setup.php');") \
     ; [ "$EXPECTED_SIGNATURE" != "$ACTUAL_SIGNATURE" ] && echo 'ERROR: Invalid installer signature' && exit 1 \
-    ; php composer-setup.php --version=2.7.1 --quiet \
+    ; php composer-setup.php --version=2.8.12 --quiet \
     ; mv composer.phar /usr/local/bin/composer \
     ; chmod +x /usr/local/bin/composer \
     ; RESULT=$? \
